@@ -5,7 +5,6 @@ import types
 
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.db import transaction, connection
 from django.db.models import Q, Value
 from django.db.models.functions import Concat, Substr
@@ -17,6 +16,11 @@ from modeltranslation.translator import translator, NotRegistered
 from modeltranslation.utils import build_localized_fieldname, get_language
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.views import get_setting_edit_handler
+
+try:
+     from django.core.urlresolvers import reverse
+except ImportError:
+     from django.urls import reverse
 
 try:
     from wagtail.contrib.routable_page.models import RoutablePageMixin
